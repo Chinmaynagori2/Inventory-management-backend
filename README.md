@@ -1,14 +1,6 @@
 # Inventory Management API
 
-A simple, secure Flask-based REST API for managing inventory in small businesses. This API provides user authentication using JWT tokens and full CRUD operations for product management.
-
-## Features
-
-- **User Authentication**: Secure registration and login with JWT tokens
-- **Password Security**: Passwords are hashed using Werkzeug's security utilities
-- **Product Management**: Add, update, and retrieve products with full inventory tracking
-- **Pagination Support**: Efficient product listing with pagination
-- **RESTful Design**: Clean, intuitive API endpoints following REST principles
+A simple, secure Flask-based REST API for managing inventory.
 
 ## Tech Stack
 
@@ -64,30 +56,7 @@ You should see output similar to:
 * Debug mode: on
 ```
 
-## Quick Start
-
-### 1. Register a User
-
-```bash
-curl -X POST http://localhost:8080/register \
-  -H "Content-Type: application/json" \
-  -d '{"username": "testuser", "password": "testpass"}'
-```
-
-### 2. Login and Get Token
-
-```bash
-curl -X POST http://localhost:8080/login \
-  -H "Content-Type: application/json" \
-  -d '{"username": "testuser", "password": "testpass"}'
-```
-
-Response:
-```json
-{"access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."}
-```
-
-### 3. Add a Product (using the token)
+### Add a Product (using the token)
 
 ```bash
 curl -X POST http://localhost:8080/products \
@@ -101,13 +70,6 @@ curl -X POST http://localhost:8080/products \
     "quantity": 10,
     "price": 1299.99
   }'
-```
-
-### 4. Get Products
-
-```bash
-curl -X GET http://localhost:8080/products \
-  -H "Authorization: Bearer YOUR_TOKEN_HERE"
 ```
 
 ## Testing
@@ -135,13 +97,6 @@ Add Product: PASSED
 Update Quantity: PASSED, Updated quantity: 15
 Get Products: PASSED (Quantity = 15)
 ```
-
-### Manual Testing
-
-You can also test the API using:
-- **Postman**: Import the endpoints manually or use the Swagger documentation
-- **curl**: Use the examples provided above
-- **HTTPie**: `http POST localhost:8080/register username=test password=pass`
 
 ## API Endpoints
 
@@ -177,7 +132,6 @@ For detailed API documentation, see [API_DOCS.md](API_DOCS.md) or visit the Swag
 - **Password Hashing**: All passwords are hashed using Werkzeug's secure hash functions
 - **JWT Authentication**: Stateless authentication with expiring tokens (1 hour)
 - **Protected Endpoints**: All product operations require valid JWT tokens
-- **CORS Support**: Configured for development and can be customized for production
 
 ## Configuration
 
@@ -196,45 +150,3 @@ For production deployment:
 1. **Change the SECRET_KEY** to a secure, random value
 2. **Use a production database** (PostgreSQL, MySQL) instead of SQLite
 3. **Disable debug mode** by setting `debug=False`
-4. **Use a production WSGI server** like Gunicorn:
-   ```bash
-   pip install gunicorn
-   gunicorn -w 4 -b 0.0.0.0:8080 app:app
-   ```
-
-## Troubleshooting
-
-### Common Issues
-
-**Database not found**: The SQLite database is created automatically on first run.
-
-**Token expired**: JWT tokens expire after 1 hour. Login again to get a new token.
-
-**Port already in use**: Change the port in `app.py` or kill the process using port 8080:
-```bash
-# Find process using port 8080
-lsof -i :8080
-# Kill the process
-kill -9 <PID>
-```
-
-**Import errors**: Make sure all dependencies are installed:
-```bash
-pip install flask flask_sqlalchemy flask_cors pyjwt werkzeug
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-For questions or support, please open an issue in the GitHub repository.
